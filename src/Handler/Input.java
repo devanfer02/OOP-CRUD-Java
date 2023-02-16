@@ -39,7 +39,7 @@ public class Input
         do {
             try {
                 System.out.print("Phone Number : ");
-                phoneNum = in.next();
+                phoneNum = in.nextLine();
                 if(phoneNum.length() < 10 || phoneNum.length() > 13)
                 {
                     throw new PhoneNumberException("Please enter valid number");
@@ -52,7 +52,29 @@ public class Input
             }
         } while(!isPhone);
         return phoneNum;
-        
+    }
+
+    protected static String numberPhoneInputHandling(int status)
+    {
+        String phoneNum =  "";
+        boolean isPhone = false;
+        do {
+            try {
+                System.out.print("Phone Number : ");
+                phoneNum = in.nextLine();
+                if(phoneNum.equals("")) return phoneNum;
+                if(phoneNum.length() < 10 || phoneNum.length() > 13)
+                {
+                    throw new PhoneNumberException("Please enter valid number");
+                }
+                isPhone = true;
+            } catch (PhoneNumberException pne) {
+                System.out.print("\n");
+                System.out.println(pne.getMessage());
+                System.out.println("Valid number only contains between 10 and 13 digits");
+            }
+        } while(!isPhone);
+        return phoneNum;
     }
 
     protected static int ageInputHandling()

@@ -41,6 +41,7 @@ public class Handler
                 createUser();
                 break;
             case '2':
+                editUser();
                 break;
             case '3':
                 deleteUser();
@@ -181,6 +182,73 @@ public class Handler
         optionsHandling();
     }
 
+    private static void editUser()
+    {
+        String information[] = {"Name","Phone","Age","Username","Password"};
+        char pick;
+        int index,age;
+        String name, phoneNum,password,username,choice;
+        displayHeaderOperation("EDIT USER");
+        System.out.println("Enter user's username");
+        username = Input.usernameInputHandling(0);
+        index = getIndexOfUser(username);
+        while (index == -1)
+        {
+            System.out.println("User not found");
+            System.out.println("Try again or back to menu");
+            System.out.print("Choice : (y/n)");
+            choice = in.nextLine().toLowerCase();
+            if(choice.charAt(0) == 'y')
+            {
+                optionsHandling();
+                return;
+            }
+            username = Input.usernameInputHandling(0);
+            index = getIndexOfUser(username);
+        }
+        User user = Data.getDb().get(index);
+        System.out.println("Update the information you need to update");
+        System.out.println("Press n if you dont need to update specific information");
+
+        for(String info : information)
+        {
+            System.out.printf("%s ? (y/n)\n",info);
+            pick = in.nextLine().toLowerCase().charAt(0);
+            if(pick == 'n') continue;
+            switch(info)
+            {
+                case "Name":
+                    name = Input.nameInputHandling();
+                    user.setName(name);
+                    break;
+                case "Phone":
+                    phoneNum = Input.numberPhoneInputHandling();
+                    user.setPhoneNumber(phoneNum);
+                    break;
+                case "Age":
+                    age = Input.ageInputHandling();
+                    user.setAge(age);
+                    break;
+                case "Username":
+                    username = Input.usernameInputHandling(0);
+                    user.setUsername(username);
+                    break;
+                case "Password":
+                    password = Input.passwordInputHandling();
+                    user.setPassword(password);
+                    break;
+            }
+        }
+        try {
+            throwLoading("Updating user");
+        } catch (Exception e) { 
+            System.out.println(e.getMessage());
+        }
+        System.out.println("User has been updated!");
+        waitingHandler();
+        optionsHandling();
+    }
+
     private static void deleteUser()
     {
         String username, choice,password;
@@ -226,8 +294,7 @@ public class Handler
             System.out.println(e.getMessage());
         }
         System.out.println("User has been deleted");
-        System.out.println("Press enter to continue");
-        in.nextLine();
+        waitingHandler();
         optionsHandling();
     }
 }
