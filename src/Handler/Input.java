@@ -10,6 +10,7 @@ public class Input
 {
     static Scanner in = new Scanner(System.in);
 
+    //Registration Handling
     public static String nameInputHandling()
     {
         System.out.print("Name         : ");
@@ -97,5 +98,28 @@ public class Input
         }
         in.nextLine();
         return password;
+    }
+
+    //Choice Handling
+    public static char choiceInputHandling()
+    {
+        char choice = ' ';
+        System.out.print("Select your choice");
+        try {
+            choice = in.next().charAt(0);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Congratulations! You found a bug!");
+            System.out.println("Please report this to admin");
+            System.exit(0);
+        }
+        int numberValue = Character.getNumericValue(choice);
+        while (numberValue < 1 || numberValue > 4) 
+        {
+            System.out.println("Please enter valid choice");
+            choice = in.next().charAt(0);
+            numberValue = Character.getNumericValue(choice);
+        }
+        return choice;
     }
 }
