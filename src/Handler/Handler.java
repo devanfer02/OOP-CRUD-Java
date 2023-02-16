@@ -1,6 +1,8 @@
 package Handler;
 
 import java.util.*;
+import java.util.stream.IntStream;
+
 import Database.*;
 
 public class Handler 
@@ -19,7 +21,7 @@ public class Handler
         
     }
 
-    public static void displayOptions()
+    private static void displayOptions()
     {
         System.out.println("1. Add User");
         System.out.println("2. Edit User");
@@ -28,7 +30,7 @@ public class Handler
         System.out.println("5. Exit Program");
     }
 
-    public static void optionsHandling()
+    private static void optionsHandling()
     {
         System.out.println("\nChoose operation you want to do");
         displayOptions();
@@ -41,6 +43,7 @@ public class Handler
             case '2':
                 break;
             case '3':
+                deleteUser();
                 break;
             case '4':
                 tableDisplay();
@@ -73,12 +76,25 @@ public class Handler
         
     }
 
-    public static boolean databaseEmpty()
+    private static User getUserFromIndex(int index)
+    {
+        return Data.getDb().get(index);
+    }
+
+    private static int getIndexOfUser(String username)
+    {
+        ArrayList<User>db = Data.getDb();
+        int sizeDb = db.size();
+        IntStream stream = IntStream.range(0,sizeDb);
+        return stream.filter(i -> db.get(i).getUsername().equals(username)).findFirst().orElse(-1);
+    }
+
+    private static boolean databaseEmpty()
     {
         return Data.getDb().size() == 0;
     }
 
-    public static void throwLoading(String message) throws Exception
+    private static void throwLoading(String message) throws Exception
     {
         System.out.print(message);
         Thread.sleep(500);
@@ -95,7 +111,7 @@ public class Handler
     }
 
     //Display Handling
-    public static void tableDisplay()
+    private static void tableDisplay()
     {
         if(databaseEmpty())
         {
@@ -118,13 +134,13 @@ public class Handler
         optionsHandling();
     }
 
-    public static void waitingHandler()
+    private static void waitingHandler()
     {
         System.out.println("Press enter to continue");
         in.nextLine();
     }
 
-    public static void exitProgramHandler()
+    private static void exitProgramHandler()
     {
         System.out.println("Thank you for using our program");
         System.out.println("Please leave your review");
@@ -137,13 +153,17 @@ public class Handler
         System.exit(0);
     }
 
-    
-    //CRUD OPERATIONS
-    public static void createUser()
+    private static void displayHeaderOperation(String message)
     {
         System.out.println("===================================================================================");
-        System.out.println("                                CREATE USER                                        ");
+        System.out.printf("%36s%s%36s\n","",message,"");
         System.out.println("===================================================================================");
+    }
+    
+    //CRUD OPERATIONS
+    private static void createUser()
+    {
+        displayHeaderOperation("CREATE USER");
         String name = Input.nameInputHandling(); 
         String phoneNum = Input.numberPhoneInputHandling(); 
         int age = Input.ageInputHandling(); 
@@ -158,6 +178,56 @@ public class Handler
         Data.addData(new User(name,phoneNum,age,username,password));
         System.out.println("User has been created!");
         waitingHandler();
+        optionsHandling();
+    }
+
+    private static void deleteUser()
+    {
+        String username, choice,password;
+        boolean isExist = false, backMenu = false;
+        displayHeaderOperation("DELETE USER");
+        System.out.println("Enter user's username and password");
+        username = Input.usernameInputHandling(0);
+        isExist = checkUsername(username);
+        while (!isExist && !backMenu) 
+        {
+            System.out.printf("User with username %s doesnt exist",username);
+            System.out.println("Please try again ");
+            System.out.print("or Back to menu ? (y/n)");
+            choice = in.nextLine().toLowerCase();
+            if(choice.charAt(0) == 'y') 
+            {
+                optionsHandling();
+                return;
+            }
+            username = Input.usernameInputHandling(0);
+        }
+        User user = getUserFromIndex(getIndexOfUser(username));
+        password = Input.passwordInputHandling();
+        while (!user.getPassword().equals(password))
+        {
+            System.out.println("Password doesnt match");
+            System.out.println("Please try again ");
+            System.out.print("or Back to menu ? (y/n)");
+            choice = in.nextLine().toLowerCase();
+            if(choice.charAt(0) == 'y') 
+            {
+                optionsHandling();
+                return;
+            }
+            password = Input.passwordInputHandling();
+        }
+        
+        final String uname = username;
+        Data.getDb().removeIf(u -> u.getUsername().equals(uname));
+        try {
+            throwLoading("Deleting user");
+        } catch (Exception e) { 
+            System.out.println(e.getMessage());
+        }
+        System.out.println("User has been deleted");
+        System.out.println("Press enter to continue");
+        in.nextLine();
         optionsHandling();
     }
 }

@@ -15,4 +15,9 @@ public class Data
     {
         return db;
     }
+
+    public static void setDb(ArrayList<User> db)
+    {
+        
+    }
 }

@@ -11,7 +11,7 @@ public class Input
     static Scanner in = new Scanner(System.in);
 
     //Registration Handling
-    public static String nameInputHandling()
+    protected static String nameInputHandling()
     {
         System.out.print("Name         : ");
         String name = in.nextLine();
@@ -32,7 +32,7 @@ public class Input
         return name;
     }
 
-    public static String numberPhoneInputHandling()
+    protected static String numberPhoneInputHandling()
     {
         String phoneNum =  "";
         boolean isPhone = false;
@@ -55,7 +55,7 @@ public class Input
         
     }
 
-    public static int ageInputHandling()
+    protected static int ageInputHandling()
     {
         int age = -1;
         boolean match = false;
@@ -70,12 +70,13 @@ public class Input
                 System.out.println("Age must be a number");
                 in.next();
             }
-            
         } while(!match);
+        if (age < 0) System.out.println("Oi baby, go back to your mother's womb");
+        if (age > 300) System.out.println("Damn gramps, still alive"); 
         return age;
     }
 
-    public static String usernameInputHandling()
+    protected static String usernameInputHandling()
     {
         String username = "";
         System.out.print("Username     : ");
@@ -87,7 +88,15 @@ public class Input
         return username;
     }
 
-    public static String passwordInputHandling()
+    protected static String usernameInputHandling(int status)
+    {
+        String username = "";
+        System.out.print("Username     : ");
+        username = in.nextLine();
+        return username;
+    }
+
+    protected static String passwordInputHandling()
     {
         String regex = ".*\\d.*";
         Pattern pattern = Pattern.compile(regex);
@@ -111,13 +120,13 @@ public class Input
             matcher = pattern.matcher(password);
             isValid = matcher.matches();
             hasMinimum = password.length() >= 8;
-             hasSpaceChar = password.indexOf(' ') != -1;
+            hasSpaceChar = password.indexOf(' ') != -1;
         }
         return password;
     }
 
     //Choice Handling
-    public static char choiceInputHandling()
+    protected static char choiceInputHandling()
     {
         char choice = ' ';
         System.out.print("Select your choice : ");
