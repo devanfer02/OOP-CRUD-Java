@@ -21,6 +21,7 @@ public class Input
         boolean notValid = matcher.matches();
         while(notValid) 
         {
+            System.out.print("\n");
             System.out.println("Please enter valid name");
             System.out.println("Valid name only contains letter");
             System.out.print("Name         : ");
@@ -45,6 +46,7 @@ public class Input
                 }
                 isPhone = true;
             } catch (PhoneNumberException pne) {
+                System.out.print("\n");
                 System.out.println(pne.getMessage());
                 System.out.println("Valid number only contains between 10 and 13 digits");
             }
@@ -64,6 +66,7 @@ public class Input
                 match = true;
                 in.nextLine();
             } catch (InputMismatchException ime) {
+                System.out.print("\n");
                 System.out.println("Age must be a number");
                 in.next();
             }
@@ -86,17 +89,30 @@ public class Input
 
     public static String passwordInputHandling()
     {
+        String regex = ".*\\d.*";
+        Pattern pattern = Pattern.compile(regex);
+        
         String password = "";
         System.out.print("Password     : ");
-        password = in.next();
-        while (password.length() < 8)
+        password = in.nextLine();
+        Matcher matcher = pattern.matcher(password);
+        boolean isValid = matcher.matches();
+        boolean hasMinimum = password.length() >= 8;
+        boolean hasSpaceChar = password.indexOf(' ') != -1;
+        while (!hasMinimum || !isValid || hasSpaceChar)
         {
-            System.out.println("Minimum password length is 8");
-            System.out.println("Please use new password");
+            System.out.print("\n");
+            if (!hasMinimum) System.out.println("Minimum password length is 8");
+            if (!isValid) System.out.println("Password must contain atleast 1 number");
+            if (hasSpaceChar) System.out.println("Password cannot contain space character");
+            System.out.println("Please enter new password");
             System.out.print("Password     : ");
-            password = in.next();
+            password = in.nextLine();
+            matcher = pattern.matcher(password);
+            isValid = matcher.matches();
+            hasMinimum = password.length() >= 8;
+             hasSpaceChar = password.indexOf(' ') != -1;
         }
-        in.nextLine();
         return password;
     }
 
@@ -104,7 +120,7 @@ public class Input
     public static char choiceInputHandling()
     {
         char choice = ' ';
-        System.out.print("Select your choice");
+        System.out.print("Select your choice : ");
         try {
             choice = in.next().charAt(0);
         } catch (Exception e) {
@@ -114,12 +130,15 @@ public class Input
             System.exit(0);
         }
         int numberValue = Character.getNumericValue(choice);
-        while (numberValue < 1 || numberValue > 4) 
+        while (numberValue < 1 || numberValue > 5) 
         {
+            System.out.print("\n");
             System.out.println("Please enter valid choice");
+            System.out.print("Select your choice : ");
             choice = in.next().charAt(0);
             numberValue = Character.getNumericValue(choice);
         }
+        in.nextLine();
         return choice;
     }
 }
