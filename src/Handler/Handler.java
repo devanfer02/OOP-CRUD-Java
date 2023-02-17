@@ -161,6 +161,20 @@ public class Handler
         System.out.printf("%36s%s%36s\n","",message,"");
         System.out.println("===================================================================================");
     }
+
+    private static void updatingSerFile(String message)
+    {
+        try {
+            throwLoading(message);
+        } catch (Exception e) { 
+           
+        }
+        try {
+            Data.writeFile();
+        } catch (Exception e) {
+            
+        }
+    }
     
     //CRUD OPERATIONS
     private static void createUser()
@@ -171,22 +185,13 @@ public class Handler
         int age = Input.ageInputHandling(); 
         String username = Input.usernameInputHandling();
         String password = Input.passwordInputHandling();
-        System.out.print("\n");
+        Data.addData(new User(name,phoneNum,age,username,password));
         try {
-            throwLoading("Creating user");
-        } catch (Exception e) { 
-            System.out.println(e.getMessage());
-        }
-        try {
-            Data.writeFile();
+            updatingSerFile("Creating user");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Data.addData(new User(name,phoneNum,age,username,password));
         System.out.println("User has been created!");
-        waitingHandler();
-        
-        
         optionsHandling();
     }
 
@@ -248,12 +253,7 @@ public class Handler
             }
         }
         try {
-            throwLoading("Updating user");
-        } catch (Exception e) { 
-            System.out.println(e.getMessage());
-        }
-        try {
-            Data.writeFile();
+            updatingSerFile("Updating user");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -272,9 +272,9 @@ public class Handler
         isExist = checkUsername(username);
         while (!isExist && !backMenu) 
         {
-            System.out.printf("User with username %s doesnt exist",username);
+            System.out.printf("User with username %s doesnt exist\n",username);
             System.out.println("Please try again ");
-            System.out.print("or Back to menu ? (y/n)");
+            System.out.print("or Back to menu ? (y/n) : ");
             choice = in.nextLine().toLowerCase();
             if(choice.charAt(0) == 'y') 
             {
@@ -289,7 +289,7 @@ public class Handler
         {
             System.out.println("Password doesnt match");
             System.out.println("Please try again ");
-            System.out.print("or Back to menu ? (y/n)");
+            System.out.print("or Back to menu ? (y/n) : ");
             choice = in.nextLine().toLowerCase();
             if(choice.charAt(0) == 'y') 
             {
@@ -302,12 +302,7 @@ public class Handler
         final String uname = username;
         Data.getDb().removeIf(u -> u.getUsername().equals(uname));
         try {
-            throwLoading("Deleting user");
-        } catch (Exception e) { 
-            System.out.println(e.getMessage());
-        }
-        try {
-            Data.writeFile();
+            updatingSerFile("Deleting user");
         } catch (Exception e) {
             e.printStackTrace();
         }
