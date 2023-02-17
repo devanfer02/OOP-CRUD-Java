@@ -12,6 +12,7 @@ public class Handler
     //Menu and Options
     public static void displayMenu()
     {
+        Data.initializeDb();
         System.out.println("===================================================================================");
         System.out.println("                                 TOKO COBA                                         ");
         System.out.println("                             MADE BY DEVAN FERREL                                  ");
@@ -179,6 +180,12 @@ public class Handler
         Data.addData(new User(name,phoneNum,age,username,password));
         System.out.println("User has been created!");
         waitingHandler();
+        try {
+            Data.writeFile();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
         optionsHandling();
     }
 
@@ -212,7 +219,7 @@ public class Handler
 
         for(String info : information)
         {
-            System.out.printf("%s ? (y/n)\n",info);
+            System.out.printf("%-9s ? (y/n)   : ",info);
             pick = in.nextLine().toLowerCase().charAt(0);
             if(pick == 'n') continue;
             switch(info)
@@ -243,6 +250,11 @@ public class Handler
             throwLoading("Updating user");
         } catch (Exception e) { 
             System.out.println(e.getMessage());
+        }
+        try {
+            Data.writeFile();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         System.out.println("User has been updated!");
         waitingHandler();
@@ -292,6 +304,11 @@ public class Handler
             throwLoading("Deleting user");
         } catch (Exception e) { 
             System.out.println(e.getMessage());
+        }
+        try {
+            Data.writeFile();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         System.out.println("User has been deleted");
         waitingHandler();
