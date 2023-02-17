@@ -10,5 +10,6 @@ The CRUD can hold these informations :
 - Username
 - Password
 
-username and password are not visible in tableDisplay method, you can make it visible if you want to.
+Username and password are not visible in tableDisplay method, you can make it visible if you want to. <br/>
+To Edit and Delete user from database, use user's username and password.
 
