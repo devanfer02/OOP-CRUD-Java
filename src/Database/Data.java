@@ -41,6 +41,7 @@ public class Data
         FileInputStream readData = new FileInputStream("userdata.ser");
         ObjectInputStream readStream = new ObjectInputStream(readData);
  
+        @SuppressWarnings("unchecked")
         ArrayList<User>db  = (ArrayList<User>) readStream.readObject();
         readStream.close();
         return db;
