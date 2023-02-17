@@ -1,18 +1,15 @@
-## Getting Started
+## OOP CRUD Java
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+This project is a mini project i made to refresh my oop knowledge. <br/>
+To start this projoct, download this whole repository and run App.java inside src foldier. <br/>
 
-## Folder Structure
+The CRUD can hold these informations : 
+- Name
+- Phone Number
+- Age
+- Username
+- Password
 
-The workspace contains two folders by default, where:
+Username and password are not visible in tableDisplay method, you can make it visible if you want to. <br/>
+To Edit and Delete user from database, use user's username and password.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
