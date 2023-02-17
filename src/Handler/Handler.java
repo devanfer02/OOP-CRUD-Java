@@ -177,14 +177,15 @@ public class Handler
         } catch (Exception e) { 
             System.out.println(e.getMessage());
         }
-        Data.addData(new User(name,phoneNum,age,username,password));
-        System.out.println("User has been created!");
-        waitingHandler();
         try {
             Data.writeFile();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Data.addData(new User(name,phoneNum,age,username,password));
+        System.out.println("User has been created!");
+        waitingHandler();
+        
         
         optionsHandling();
     }
@@ -221,7 +222,7 @@ public class Handler
         {
             System.out.printf("%-9s ? (y/n)   : ",info);
             pick = in.nextLine().toLowerCase().charAt(0);
-            if(pick == 'n') continue;
+            if(pick == 'n' || pick != 'y') continue;
             switch(info)
             {
                 case "Name":
