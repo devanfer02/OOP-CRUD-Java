@@ -192,6 +192,7 @@ public class Handler
             e.printStackTrace();
         }
         System.out.println("User has been created!");
+        waitingHandler();
         optionsHandling();
     }
 
