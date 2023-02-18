@@ -162,22 +162,14 @@ public class Handler
         System.out.println("===================================================================================");
     }
 
-    private static void updatingSerFile(String message)
+    private static void updatingSerFile(String message) throws Exception
     {
-        try {
-            throwLoading(message);
-        } catch (Exception e) { 
-           
-        }
-        try {
-            Data.writeFile();
-        } catch (Exception e) {
-            
-        }
+        throwLoading(message);
+        Data.writeFile();
     }
     
     //CRUD OPERATIONS
-    private static void createUser()
+    private static void createUser() 
     {
         displayHeaderOperation("CREATE USER");
         String name = Input.nameInputHandling(); 
