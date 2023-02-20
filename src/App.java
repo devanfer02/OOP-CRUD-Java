@@ -1,4 +1,4 @@
-import Handler.*;
+import Handler.Handler;
 
 public class App 
 {
