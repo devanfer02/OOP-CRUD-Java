@@ -55,7 +55,7 @@ public class Handler
         
     }
 
-    public static void usernameExist(String username)
+    protected static void usernameExist(String username)
     {
         do 
         {
@@ -66,7 +66,7 @@ public class Handler
         } while (checkUsername(username));
     }
 
-    public static boolean checkUsername(String username)
+    protected static boolean checkUsername(String username)
     {   
         try {
             return Data.getDb()
