@@ -103,9 +103,9 @@ public class Input
         String username = "";
         System.out.print("Username     : ");
         username = in.nextLine();
-        if (Handler.checkUsername(username)) 
+        if (Functions.checkUsername(username)) 
         {
-            Handler.usernameExist(username);
+            Functions.usernameExist(username);
         }
         return username;
     }

@@ -1,9 +1,9 @@
-import Handler.Handler;
+import Handler.Functions;
 
 public class App 
 {
     public static void main(String[] args) throws Exception 
     {
-        Handler.displayMenu();
+        Functions.displayMenu();
     }
 }
