@@ -18,7 +18,6 @@ public class Functions
         System.out.println("===================================================================================");
         System.out.println("Welcome to Toko Coba CRUD!");
         Routes.optionsHandling();
-        
     }
 
     protected static void displayOptions()

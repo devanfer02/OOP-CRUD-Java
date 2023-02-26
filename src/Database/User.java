@@ -19,7 +19,6 @@ public class User implements Serializable
         this.password = password;
     }
 
-    //Getter-Setter
     public String getName(){
         return this.name;
     }

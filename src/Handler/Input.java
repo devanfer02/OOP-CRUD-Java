@@ -10,7 +10,6 @@ public class Input
 {
     static Scanner in = new Scanner(System.in);
 
-    //Registration Handling
     protected static String nameInputHandling()
     {
         System.out.print("Name         : ");
@@ -147,7 +146,6 @@ public class Input
         return password;
     }
 
-    //Choice Handling
     protected static char choiceInputHandling()
     {
         char choice = ' ';

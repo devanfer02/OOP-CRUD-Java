@@ -45,7 +45,7 @@ public class Handler
             choice = in.nextLine().toLowerCase();
             if(choice.charAt(0) == 'y')
             {
-             Routes.   optionsHandling();
+                Routes.optionsHandling();
                 return;
             }
             username = Input.usernameInputHandling(0);
@@ -125,7 +125,7 @@ public class Handler
             choice = in.nextLine().toLowerCase();
             if(choice.charAt(0) == 'y') 
             {
-             Routes.optionsHandling();
+                Routes.optionsHandling();
                 return;
             }
             password = Input.passwordInputHandling();
